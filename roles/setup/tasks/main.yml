@@ -1,0 +1,201 @@
+- debug:
+    msg: 'Preparing Keycloak setup ...'
+  name: 'Get started'
+- include_vars:
+    file: catalog_rbac.yml
+    name: rbac
+  name: 'Include Catalog & Approval RBAC Setup vars'
+- community.general.keycloak_realm:
+    auth_client_id: '{{ auth_client_id }}'
+    auth_keycloak_url: '{{ auth_keycloak_url }}'
+    auth_password: '{{ auth_password }}'
+    auth_realm: '{{ auth_realm }}'
+    auth_username: '{{ auth_username }}'
+    display_name: 'Ansible Automation Platform'
+    enabled: true
+    id: aap
+    realm: aap
+    state: present
+    validate_certs: true
+  name: 'Create or update AAP Keycloak realm'
+  register: my_realm
+- community.general.keycloak_client:
+    admin_url: '{{ admin_url }}'
+    attributes:
+      request.object.signature.alg: RS256
+      user.info.response.signature.alg: RS256
+    auth_client_id: '{{ auth_client_id }}'
+    auth_keycloak_url: '{{ auth_keycloak_url }}'
+    auth_password: '{{ auth_password }}'
+    auth_realm: '{{ auth_realm }}'
+    auth_username: '{{ auth_username }}'
+    authorization_services_enabled: true
+    bearer_only: false
+    client_authenticator_type: client-secret
+    client_id: catalog
+    consent_required: false
+    description: 'Client ID for Ansible Services Catalog'
+    direct_access_grants_enabled: false
+    enabled: true
+    frontchannel_logout: false
+    id: '{{ client_guid }}'
+    implicit_flow_enabled: false
+    name: Catalog
+    protocol: openid-connect
+    protocol_mappers:
+      - config:
+          access.token.claim: true
+          claim.name: family_name
+          id.token.claim: true
+          jsonType.label: String
+          user.attribute: lastName
+          userinfo.token.claim: true
+        consentRequired: false
+        name: 'family name'
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+      - config:
+          access.token.claim: true
+          claim.name: email
+          id.token.claim: true
+          jsonType.label: String
+          user.attribute: email
+          userinfo.token.claim: true
+        consentRequired: false
+        name: email
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+      - config:
+          access.token.claim: true
+          claim.name: resource_access.${client_id}.roles
+          jsonType.label: String
+          multivalued: true
+          user.attribute": foo
+        consentRequired: false
+        name: 'client roles'
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-client-role-mapper
+      - config:
+          access.token.claim: true
+          claim.name: given_name
+          id.token.claim: true
+          jsonType.label: String
+          user.attribute: firstName
+          userinfo.token.claim: true
+        consentRequired: false
+        name: 'given name'
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+      - config:
+          access.token.claim: true
+          id.token.claim: true
+          userinfo.token.claim: true
+        consentRequired: false
+        name: 'full name'
+        protocol: openid-connect
+        protocolMapper: oidc-full-name-mapper
+      - config:
+          access.token.claim: true
+          claim.name: preferred_username
+          id.token.claim: true
+          jsonType.label: String
+          user.attribute: username
+          userinfo.token.claim: true
+        consentRequired: false
+        name: username
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+      - config:
+          access.token.claim: true
+          claim.name: group
+          full.path: true
+          id.token.claim: true
+          userinfo.token.claim: true
+        consentRequired: false
+        name: 'group mapper'
+        protocol: openid-connect
+        protocolMapper: oidc-group-membership-mapper
+      - config:
+          access.token.claim: true
+          id.token.claim: true
+          included.client.audience: catalog
+        name: 'audience mapper'
+        protocol: openid-connect
+        protocolMapper: oidc-audience-mapper
+    public_client: false
+    realm: aap
+    redirect_uris: '{{ redirect_uris }}'
+    root_url: '{{ root_url }}'
+    secret: '{{ social_auth_keycloak_secret }}'
+    service_accounts_enabled: true
+    standard_flow_enabled: true
+    state: present
+    web_origins: '{{ web_origins }}'
+  name: 'Create or update a Keycloak client for Catalog'
+- name: 'Create Token for service Keycloak'
+  register: keycloak_token
+  uri:
+    body:
+      client_id: '{{ auth_client_id }}'
+      grant_type: password
+      password: '{{ auth_password }}'
+      username: '{{ auth_username }}'
+    body_format: form-urlencoded
+    method: POST
+    url: '{{ auth_keycloak_url }}/realms/master/protocol/openid-connect/token'
+- name: 'Get Clients'
+  register: keycloak_clients
+  uri:
+    headers:
+      Accept: application/json
+      Authorization: 'Bearer {{ keycloak_token.json.access_token }}'
+      Content-type: application/json
+    method: GET
+    status_code:
+      - 200
+    url: '{{ auth_keycloak_url }}/admin/realms/aap/clients?clientId=catalog&first=0&max=20&search=true'
+- name: 'Save catalog client'
+  set_fact:
+    catalog_client: '{{ keycloak_clients[''json''][0]  }}'
+- name: 'Get Realm'
+  register: new_realm
+  uri:
+    headers:
+      Accept: application/json
+      Authorization: 'Bearer {{ keycloak_token.json.access_token }}'
+      Content-type: application/json
+    method: GET
+    status_code:
+      - 200
+    url: '{{ auth_keycloak_url }}/realms/aap'
+- name: 'Set the public key'
+  set_fact:
+    social_auth_keycloak_public_key: '{{ new_realm.json.public_key }}'
+- include_tasks: create_scope.yml
+  loop_control:
+    loop_var: scope
+  when: 'rbac.scopes is defined'
+  with_items: '{{ rbac.scopes }}'
+- include_tasks: create_role.yml
+  loop_control:
+    label: '{{ role.key }}'
+    loop_var: role
+  when: 'rbac.roles is defined'
+  with_dict: '{{ rbac.roles }}'
+- include_tasks: create_group.yml
+  loop_control:
+    label: '{{ group.name }}'
+    loop_var: group
+  when: 'seed_groups is defined'
+  with_items: '{{ seed_groups }}'
+- include_tasks: create_user.yml
+  loop_control:
+    label: '{{ user.username }}'
+    loop_var: user
+  when: 'seed_users is defined'
+  with_items: '{{ seed_users }}'
+- name: 'Write the keycloak settings file'
+  template:
+    dest: '{{ settings_dir }}/{{ keycloak_settings_file }}'
+    mode: 416
+    src: ./templates/social_auth_settings.conf.j2
