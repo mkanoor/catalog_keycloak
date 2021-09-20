@@ -8,7 +8,6 @@ auth_realm: '{{ lookup(''env'', ''KEYCLOAK_REALM'') | default(''master'', True) 
 auth_username: '{{ lookup(''env'', ''KEYCLOAK_USER'') | default(''admin'', True) }}'
 client_guid: d8b127a3-31f6-44c8-a7e4-4ab9a3e78d95
 keycloak_settings_file: local_keycloak.py
-keycloak_verify_ssl: "True"
 redirect_uris_str: '{{ lookup(''env'', ''REDIRECT_URIS_STR'') | default(''http://app:8000/,http://app:8000/*'', True) }}'
 redirect_uris: "{{ redirect_uris_str.split(',') }}"
 root_url: '{{ lookup(''env'', ''ROOT_URL'') | default(''http://app:8000/'', True) }}'
@@ -17,6 +16,6 @@ social_auth_keycloak_access_token_url: "{{ auth_keycloak_url }}/realms/aap/proto
 social_auth_keycloak_authorization_url: "{{ keycloak_external_url }}/realms/aap/protocol/openid-connect/auth/"
 social_auth_keycloak_key: catalog
 social_auth_keycloak_public_key: abc
-social_auth_keycloak_secret: REALLYWELLKEPTSECRET
+social_auth_keycloak_secret: '{{ lookup(''env'', ''KEYCLOAK_SECRET'') | default(''REALLYWELLKEPTSECRET'', True) }}'
 web_origins:
   - http://app:8000/*
