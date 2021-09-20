@@ -132,17 +132,7 @@
     state: present
     web_origins: '{{ web_origins }}'
   name: 'Create or update a Keycloak client for Catalog'
-- name: 'Create Token for service Keycloak'
-  register: keycloak_token
-  uri:
-    body:
-      client_id: '{{ auth_client_id }}'
-      grant_type: password
-      password: '{{ auth_password }}'
-      username: '{{ auth_username }}'
-    body_format: form-urlencoded
-    method: POST
-    url: '{{ auth_keycloak_url }}/realms/master/protocol/openid-connect/token'
+- include_tasks: keycloak_token.yml
 - name: 'Get Clients'
   register: keycloak_clients
   uri:
@@ -171,29 +161,8 @@
 - name: 'Set the public key'
   set_fact:
     social_auth_keycloak_public_key: '{{ new_realm.json.public_key }}'
-- include_tasks: create_scope.yml
-  loop_control:
-    loop_var: scope
-  when: 'rbac.scopes is defined'
-  with_items: '{{ rbac.scopes }}'
-- include_tasks: create_role.yml
-  loop_control:
-    label: '{{ role.key }}'
-    loop_var: role
-  when: 'rbac.roles is defined'
-  with_dict: '{{ rbac.roles }}'
-- include_tasks: create_group.yml
-  loop_control:
-    label: '{{ group.name }}'
-    loop_var: group
-  when: 'seed_groups is defined'
-  with_items: '{{ seed_groups }}'
-- include_tasks: create_user.yml
-  loop_control:
-    label: '{{ user.username }}'
-    loop_var: user
-  when: 'seed_users is defined'
-  with_items: '{{ seed_users }}'
+- include_tasks: keycloak_seed.yml
+  when: seed_keycloak
 - name: 'Write the keycloak settings file'
   template:
     dest: '{{ settings_dir }}/{{ keycloak_settings_file }}'

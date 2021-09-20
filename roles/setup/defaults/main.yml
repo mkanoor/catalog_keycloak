@@ -9,7 +9,7 @@ auth_username: '{{ lookup(''env'', ''KEYCLOAK_USER'') | default(''admin'', True)
 client_guid: d8b127a3-31f6-44c8-a7e4-4ab9a3e78d95
 keycloak_settings_file: local_keycloak.py
 keycloak_verify_ssl: "True"
-redirect_uris_str: '{{ lookup(''env'', ''REDIRECT_URIS_STR'') | default(''http://app:8000/, http://app:8000/*'', True) }}'
+redirect_uris_str: '{{ lookup(''env'', ''REDIRECT_URIS_STR'') | default(''http://app:8000/,http://app:8000/*'', True) }}'
 redirect_uris: "{{ redirect_uris_str.split(',') }}"
 root_url: '{{ lookup(''env'', ''ROOT_URL'') | default(''http://app:8000/'', True) }}'
 settings_dir: .
