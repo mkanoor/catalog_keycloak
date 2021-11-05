@@ -13,25 +13,25 @@ roles:
             description: 'Administrator access to all requests'
             logic: POSITIVE
             name: approval-admin-all-request-permission
-            resourceType: ansible:catalog_approval:request
+            resourceType: approval:request
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all workflow'
             logic: POSITIVE
             name: approval-admin-all-workflow-permission
-            resourceType: ansible:catalog_approval:workflow
+            resourceType: approval:workflow
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all action'
             logic: POSITIVE
             name: approval-admin-all-action-permission
-            resourceType: ansible:catalog_approval:action
+            resourceType: approval:action
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all template'
             logic: POSITIVE
             name: approval-admin-all-template-permission
-            resourceType: ansible:catalog_approval:template
+            resourceType: approval:template
             type: resource
         type: role
     resources:
@@ -39,60 +39,60 @@ roles:
         name: approval-requests-all
         scopes:
           - displayName: 'Approval Request Create'
-            name: ansible:catalog_approval:request:create
+            name: approval:request:create
           - displayName: 'Approval Request Read'
-            name: ansible:catalog_approval:request:read
+            name: approval:request:read
           - displayName: 'Approval Request Update'
-            name: ansible:catalog_approval:request:update
+            name: approval:request:update
           - displayName: 'Approval Request Delete'
-            name: ansible:catalog_approval:request:delete
-        type: ansible:catalog_approval:request
+            name: approval:request:delete
+        type: approval:request
         uris:
           - api/v1/requests/*
       - displayName: 'All Approval Templates'
         name: approval-templates-all
         scopes:
           - displayName: 'Approval Template Create'
-            name: ansible:catalog_approval:template:create
+            name: approval:template:create
           - displayName: 'Approval Template Read'
-            name: ansible:catalog_approval:template:read
+            name: approval:template:read
           - displayName: 'Approval Template Update'
-            name: ansible:catalog_approval:template:update
+            name: approval:template:update
           - displayName: 'Approval Template Delete'
-            name: ansible:catalog_approval:template:delete
-        type: ansible:catalog_approval:template
+            name: approval:template:delete
+        type: approval:template
         uris:
           - api/v1/templates/*
       - displayName: 'All Approval Workflows'
         name: approval-workflows-all
         scopes:
           - displayName: 'Approval Workflow Create'
-            name: ansible:catalog_approval:workflow:create
+            name: approval:workflow:create
           - displayName: 'Approval Workflow Read'
-            name: ansible:catalog_approval:workflow:read
+            name: approval:workflow:read
           - displayName: 'Approval Workflow Update'
-            name: ansible:catalog_approval:template:update
+            name: approval:template:update
           - displayName: 'Approval Workflow Delete'
-            name: ansible:catalog_approval:workflow:delete
+            name: approval:workflow:delete
           - displayName: 'Approval Workflow Link'
-            name: ansible:catalog_approval:workflow:link
+            name: approval:workflow:link
           - displayName: 'Approval Workflow Unlink'
-            name: ansible:catalog_approval:workflow:unlink
-        type: ansible:catalog_approval:workflow
+            name: approval:workflow:unlink
+        type: approval:workflow
         uris:
           - api/v1/workflows/*
       - displayName: 'All Approval Actions'
         name: approval-actions-all
         scopes:
           - displayName: 'Approval Action Create'
-            name: ansible:catalog_approval:action:create
+            name: approval:action:create
           - displayName: 'Approval Action Read'
-            name: ansible:catalog_approval:action:read
+            name: approval:action:read
           - displayName: 'Approval Action Update'
-            name: ansible:catalog_approval:action:update
+            name: approval:action:update
           - displayName: 'Approval Action Delete'
-            name: ansible:catalog_approval:action:delete
-        type: ansible:catalog_approval:action
+            name: approval:action:delete
+        type: approval:action
         uris:
           - api/v1/actions/*
   approval-approver:
@@ -108,7 +108,7 @@ roles:
             description: 'Approver access to Approval Automation Services Catalog'
             logic: POSITIVE
             name: approval-approver-access-permission
-            scope_name: ansible:catalog_approval:access
+            scope_name: approval:access
             type: scope
         type: role
   approval-user:
@@ -124,7 +124,7 @@ roles:
             description: 'User access to Approval Automation Services Catalog'
             logic: POSITIVE
             name: approval-user-access-permission
-            scope_name: ansible:catalog_approval:access
+            scope_name: approval:access
             type: scope
         type: role
   catalog-admin:
@@ -140,31 +140,31 @@ roles:
             description: 'Administrator access to all portfolios'
             logic: POSITIVE
             name: catalog-admin-all-portfolio-permission
-            resourceType: ansible:catalog:portfolio
+            resourceType: catalog:portfolio
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all portfolio items'
             logic: POSITIVE
             name: catalog-admin-all-portfolio-item-permission
-            resourceType: ansible:catalog:portfolio_item
+            resourceType: catalog:portfolio_item
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all orders'
             logic: POSITIVE
             name: catalog-admin-all-order-permission
-            resourceType: ansible:catalog:order
+            resourceType: catalog:order
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all order items'
             logic: POSITIVE
             name: catalog-admin-all-order-item-permission
-            resourceType: ansible:catalog:order_item
+            resourceType: catalog:order_item
             type: resource
           - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all progress messages'
             logic: POSITIVE
             name: catalog-admin-all-progress-message-permission
-            resourceType: ansible:catalog:progress_message
+            resourceType: catalog:progress_message
             type: resource
         type: role
     resources:
@@ -172,64 +172,64 @@ roles:
         name: catalog-portfolio-all
         scopes:
           - displayName: 'Catalog Portfolio Create'
-            name: ansible:catalog:portfolio:create
+            name: catalog:portfolio:create
           - displayName: 'Catalog Portfolio Read'
-            name: ansible:catalog:portfolio:read
+            name: catalog:portfolio:read
           - displayName: 'Catalog Portfolio Update'
-            name: ansible:catalog:portfolio:update
+            name: catalog:portfolio:update
           - displayName: 'Catalog Portfolio Delete'
-            name: ansible:catalog:portfolio:delete
+            name: catalog:portfolio:delete
           - displayName: 'Catalog Portfolio Order'
-            name: ansible:catalog:portfolio:order
-        type: ansible:catalog:portfolio
+            name: catalog:portfolio:order
+        type: catalog:portfolio
         uris:
           - api/v1/portfolios/*
       - displayName: 'All Portfolio Items'
         name: catalog-portfolio-item-all
         scopes:
           - displayName: 'Catalog Portfolio Item Create'
-            name: ansible:catalog:portfolio_item:create
+            name: catalog:portfolio_item:create
           - displayName: 'Catalog Portfolio Item Read'
-            name: ansible:catalog:portfolio_item:read
+            name: catalog:portfolio_item:read
           - displayName: 'Catalog Portfolio Item Update'
-            name: ansible:catalog:portfolio_item:update
+            name: catalog:portfolio_item:update
           - displayName: 'Catalog Portfolio Item Delete'
-            name: ansible:catalog:portfolio_item:delete
+            name: catalog:portfolio_item:delete
           - displayName: 'Catalog Portfolio Item Order'
-            name: ansible:catalog:portfolio_item:order
-        type: ansible:catalog:portfolio_item
+            name: catalog:portfolio_item:order
+        type: catalog:portfolio_item
         uris:
           - api/v1/portfolio_items/*
       - displayName: 'All Orders'
         name: catalog-order-all
         scopes:
           - displayName: 'Catalog Order Read'
-            name: ansible:catalog:order:read
+            name: catalog:order:read
           - displayName: 'Catalog Order Write'
-            name: ansible:catalog:order:write
+            name: catalog:order:write
           - displayName: 'Catalog Order Order'
-            name: ansible:catalog:order:order
-        type: ansible:catalog:order
+            name: catalog:order:order
+        type: catalog:order
         uris:
           - api/v1/orders/*
       - displayName: 'All Order Items'
         name: catalog-order-item-all
         scopes:
           - displayName: 'Catalog Order Item Read'
-            name: ansible:catalog:order_item:read
+            name: catalog:order_item:read
           - displayName: 'Catalog Order Item Write'
-            name: ansible:catalog:order_item:write
+            name: catalog:order_item:write
           - displayName: 'Catalog Order Item Order'
-            name: ansible:catalog:order_item:order
-        type: ansible:catalog:order_item
+            name: catalog:order_item:order
+        type: catalog:order_item
         uris:
           - api/v1/order_items/*
       - displayName: 'All Progress Messages'
         name: catalog-progress-messages-all
         scopes:
           - displayName: 'Catalog Order Item Read'
-            name: ansible:catalog:progress_message:read
-        type: ansible:catalog:progress_message
+            name: catalog:progress_message:read
+        type: catalog:progress_message
         uris:
           - api/v1/progress_messages/*
   catalog-user:
@@ -246,12 +246,12 @@ roles:
             description: 'User access to Automation Services Catalog'
             logic: POSITIVE
             name: catalog-user-access-permission
-            scope_name: ansible:catalog:access
+            scope_name: catalog:access
             type: scope
         type: role
 scopes:
   - displayName: 'Catalog Access'
-    name: ansible:catalog:access
+    name: catalog:access
   - displayName: 'Approval Access'
-    name: ansible:catalog_approval:access
+    name: catalog_approval:access
 version: 1.0

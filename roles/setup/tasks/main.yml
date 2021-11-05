@@ -21,9 +21,6 @@
   register: my_realm
 - community.general.keycloak_client:
     admin_url: '{{ admin_url }}'
-    attributes:
-      request.object.signature.alg: RS256
-      user.info.response.signature.alg: RS256
     auth_client_id: '{{ auth_client_id }}'
     auth_keycloak_url: '{{ auth_keycloak_url }}'
     auth_password: '{{ auth_password }}'
@@ -115,13 +112,6 @@
         name: 'group mapper'
         protocol: openid-connect
         protocolMapper: oidc-group-membership-mapper
-      - config:
-          access.token.claim: true
-          id.token.claim: true
-          included.client.audience: catalog
-        name: 'audience mapper'
-        protocol: openid-connect
-        protocolMapper: oidc-audience-mapper
     public_client: false
     realm: aap
     redirect_uris: '{{ redirect_uris }}'
@@ -147,24 +137,5 @@
 - name: 'Save catalog client'
   set_fact:
     catalog_client: '{{ keycloak_clients[''json''][0]  }}'
-- name: 'Get Realm'
-  register: new_realm
-  uri:
-    headers:
-      Accept: application/json
-      Authorization: 'Bearer {{ keycloak_token.json.access_token }}'
-      Content-type: application/json
-    method: GET
-    status_code:
-      - 200
-    url: '{{ auth_keycloak_url }}/realms/aap'
-- name: 'Set the public key'
-  set_fact:
-    social_auth_keycloak_public_key: '{{ new_realm.json.public_key }}'
 - include_tasks: keycloak_seed.yml
   when: seed_keycloak
-- name: 'Write the keycloak settings file'
-  template:
-    dest: '{{ settings_dir }}/{{ keycloak_settings_file }}'
-    mode: 416
-    src: ./templates/social_auth_settings.conf.j2
