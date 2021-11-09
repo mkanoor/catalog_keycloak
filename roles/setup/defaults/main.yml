@@ -10,6 +10,7 @@ client_guid: d8b127a3-31f6-44c8-a7e4-4ab9a3e78d95
 redirect_uris_str: '{{ lookup(''env'', ''REDIRECT_URIS_STR'') | default(''http://app:8000/,http://app:8000/*'', True) }}'
 redirect_uris: "{{ redirect_uris_str.split(',') }}"
 root_url: '{{ lookup(''env'', ''ROOT_URL'') | default(''http://app:8000/'', True) }}'
-social_auth_keycloak_secret: '{{ lookup(''env'', ''ANSIBLE_CATALOG_KEYCLOAK_SECRET'') | default(''REALLYWELLKEPTSECRET'', True) }}'
+social_auth_keycloak_secret: '{{ lookup(''env'', ''ANSIBLE_CATALOG_KEYCLOAK_CLIENT_SECRET'') | default(''REALLYWELLKEPTSECRET'', True) }}'
+realm_frontend_url: '{{ lookup(''env'', ''ANSIBLE_CATALOG_KEYCLOAK_REALM_FRONTEND_URL'') | default(''http://keycloak/auth/'', True) }}'
 web_origins:
   - http://app:8000/*

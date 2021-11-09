@@ -13,6 +13,8 @@
     auth_username: '{{ auth_username }}'
     display_name: 'Ansible Automation Platform'
     enabled: true
+    attributes:
+      frontendUrl: '{{ realm_frontend_url }}'
     id: aap
     realm: aap
     state: present
