@@ -11,7 +11,7 @@
     method: GET
     status_code:
       - 200
-    url: '{{ auth_keycloak_url }}/admin/realms/aap/clients/{{ catalog_client[''id'']
+    url: '{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients/{{ catalog_client[''id'']
       }}/authz/resource-server/scope?deep=false&first=0&max=20&name={{ permission.scope_name
       }}'
   when: 'permission.scope_name is defined'
@@ -55,5 +55,5 @@
     status_code:
       - 201
       - 409
-    url: '{{ auth_keycloak_url }}/admin/realms/aap/clients/{{ catalog_client[''id'']
+    url: '{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients/{{ catalog_client[''id'']
       }}/authz/resource-server/permission/resource'

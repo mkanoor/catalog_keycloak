@@ -13,5 +13,5 @@
     status_code:
       - 201
       - 409
-    url: '{{ auth_keycloak_url }}/admin/realms/aap/clients/{{ catalog_client[''id'']
+    url: '{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients/{{ catalog_client[''id'']
       }}/authz/resource-server/resource'

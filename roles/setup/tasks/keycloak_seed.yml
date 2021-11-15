@@ -3,6 +3,7 @@
     loop_var: scope
   when: 'rbac.scopes is defined'
   with_items: '{{ rbac.scopes }}'
+- include_tasks: service_account_roles.yml
 - include_tasks: create_role.yml
   loop_control:
     label: '{{ role.key }}'

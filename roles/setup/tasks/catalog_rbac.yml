@@ -36,7 +36,7 @@ roles:
         type: role
     resources:
       - displayName: 'All Requests'
-        name: approval-requests-all
+        name: approval:request:all
         scopes:
           - displayName: 'Approval Request Create'
             name: approval:request:create
@@ -50,7 +50,7 @@ roles:
         uris:
           - api/v1/requests/*
       - displayName: 'All Approval Templates'
-        name: approval-templates-all
+        name: approval:template:all
         scopes:
           - displayName: 'Approval Template Create'
             name: approval:template:create
@@ -64,7 +64,7 @@ roles:
         uris:
           - api/v1/templates/*
       - displayName: 'All Approval Workflows'
-        name: approval-workflows-all
+        name: approval:workflow:all
         scopes:
           - displayName: 'Approval Workflow Create'
             name: approval:workflow:create
@@ -82,7 +82,7 @@ roles:
         uris:
           - api/v1/workflows/*
       - displayName: 'All Approval Actions'
-        name: approval-actions-all
+        name: approval:action:all
         scopes:
           - displayName: 'Approval Action Create'
             name: approval:action:create
@@ -169,7 +169,7 @@ roles:
         type: role
     resources:
       - displayName: 'All Portfolios'
-        name: catalog-portfolio-all
+        name: catalog:portfolio:all
         scopes:
           - displayName: 'Catalog Portfolio Create'
             name: catalog:portfolio:create
@@ -185,7 +185,7 @@ roles:
         uris:
           - api/v1/portfolios/*
       - displayName: 'All Portfolio Items'
-        name: catalog-portfolio-item-all
+        name: catalog:portfolio_item:all
         scopes:
           - displayName: 'Catalog Portfolio Item Create'
             name: catalog:portfolio_item:create
@@ -201,7 +201,7 @@ roles:
         uris:
           - api/v1/portfolio_items/*
       - displayName: 'All Orders'
-        name: catalog-order-all
+        name: catalog:order:all
         scopes:
           - displayName: 'Catalog Order Read'
             name: catalog:order:read
@@ -213,7 +213,7 @@ roles:
         uris:
           - api/v1/orders/*
       - displayName: 'All Order Items'
-        name: catalog-order-item-all
+        name: catalog:order_item:all
         scopes:
           - displayName: 'Catalog Order Item Read'
             name: catalog:order_item:read
@@ -225,7 +225,7 @@ roles:
         uris:
           - api/v1/order_items/*
       - displayName: 'All Progress Messages'
-        name: catalog-progress-messages-all
+        name: catalog:progress_message:all
         scopes:
           - displayName: 'Catalog Order Item Read'
             name: catalog:progress_message:read

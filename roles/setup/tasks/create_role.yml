@@ -11,7 +11,7 @@
     client_id: catalog
     description: '{{ role.value.description }}'
     name: '{{ role.key }}'
-    realm: aap
+    realm: '{{ realm_name }}'
     state: present
   name: 'Create role'
   register: role_created

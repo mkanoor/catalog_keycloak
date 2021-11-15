@@ -9,7 +9,7 @@
     auth_username: '{{ auth_username }}'
     client_id: catalog
     group_name: '{{ group.name }}'
-    realm: aap
+    realm: '{{ realm_name }}'
     roles:
       - name: '{{ group_role }}'
     state: present

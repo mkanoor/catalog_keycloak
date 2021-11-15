@@ -13,4 +13,4 @@
     status_code:
       - 201
       - 409
-    url: '{{ auth_keycloak_url }}/admin/realms/aap/users'
+    url: '{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/users'

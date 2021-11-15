@@ -12,5 +12,8 @@ redirect_uris: "{{ redirect_uris_str.split(',') }}"
 root_url: '{{ lookup(''env'', ''ROOT_URL'') | default(''http://app:8000/'', True) }}'
 social_auth_keycloak_secret: '{{ lookup(''env'', ''ANSIBLE_CATALOG_KEYCLOAK_CLIENT_SECRET'') | default(''REALLYWELLKEPTSECRET'', True) }}'
 realm_frontend_url: '{{ lookup(''env'', ''ANSIBLE_CATALOG_KEYCLOAK_REALM_FRONTEND_URL'') | default(''http://keycloak/auth/'', True) }}'
+realm_name: aap
 web_origins:
   - http://app:8000/*
+realm_management_roles:
+  - view-users

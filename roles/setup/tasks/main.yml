@@ -15,8 +15,8 @@
     enabled: true
     attributes:
       frontendUrl: '{{ realm_frontend_url }}'
-    id: aap
-    realm: aap
+    id: '{{ realm_name }}'
+    realm: '{{ realm_name }}'
     state: present
     validate_certs: true
   name: 'Create or update AAP Keycloak realm'
@@ -41,81 +41,8 @@
     implicit_flow_enabled: false
     name: Catalog
     protocol: openid-connect
-    protocol_mappers:
-      - config:
-          access.token.claim: true
-          claim.name: family_name
-          id.token.claim: true
-          jsonType.label: String
-          user.attribute: lastName
-          userinfo.token.claim: true
-        consentRequired: false
-        name: 'family name'
-        protocol: openid-connect
-        protocolMapper: oidc-usermodel-property-mapper
-      - config:
-          access.token.claim: true
-          claim.name: email
-          id.token.claim: true
-          jsonType.label: String
-          user.attribute: email
-          userinfo.token.claim: true
-        consentRequired: false
-        name: email
-        protocol: openid-connect
-        protocolMapper: oidc-usermodel-property-mapper
-      - config:
-          access.token.claim: true
-          claim.name: resource_access.${client_id}.roles
-          jsonType.label: String
-          multivalued: true
-          user.attribute": foo
-        consentRequired: false
-        name: 'client roles'
-        protocol: openid-connect
-        protocolMapper: oidc-usermodel-client-role-mapper
-      - config:
-          access.token.claim: true
-          claim.name: given_name
-          id.token.claim: true
-          jsonType.label: String
-          user.attribute: firstName
-          userinfo.token.claim: true
-        consentRequired: false
-        name: 'given name'
-        protocol: openid-connect
-        protocolMapper: oidc-usermodel-property-mapper
-      - config:
-          access.token.claim: true
-          id.token.claim: true
-          userinfo.token.claim: true
-        consentRequired: false
-        name: 'full name'
-        protocol: openid-connect
-        protocolMapper: oidc-full-name-mapper
-      - config:
-          access.token.claim: true
-          claim.name: preferred_username
-          id.token.claim: true
-          jsonType.label: String
-          user.attribute: username
-          userinfo.token.claim: true
-        consentRequired: false
-        name: username
-        protocol: openid-connect
-        protocolMapper: oidc-usermodel-property-mapper
-      - config:
-          access.token.claim: true
-          claim.name: group
-          full.path: true
-          id.token.claim: true
-          userinfo.token.claim: true
-        consentRequired: false
-        name: 'group mapper'
-        protocol: openid-connect
-        protocolMapper: oidc-group-membership-mapper
     public_client: false
-    realm: aap
+    realm: '{{ realm_name }}'
     redirect_uris: '{{ redirect_uris }}'
     root_url: '{{ root_url }}'
     secret: '{{ social_auth_keycloak_secret }}'
@@ -135,7 +62,7 @@
     method: GET
     status_code:
       - 200
-    url: '{{ auth_keycloak_url }}/admin/realms/aap/clients?clientId=catalog&first=0&max=20&search=true'
+    url: '{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients?clientId=catalog&first=0&max=20&search=true'
 - name: 'Save catalog client'
   set_fact:
     catalog_client: '{{ keycloak_clients[''json''][0]  }}'

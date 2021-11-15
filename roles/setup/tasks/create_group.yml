@@ -8,7 +8,7 @@
     auth_realm: '{{ auth_realm }}'
     auth_username: '{{ auth_username }}'
     name: '{{ group.name }}'
-    realm: aap
+    realm: '{{ realm_name }}'
     state: present
   name: 'Create a Keycloak group, authentication with credentials'
   register: group_created
