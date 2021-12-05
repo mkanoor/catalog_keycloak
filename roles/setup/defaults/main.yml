@@ -17,3 +17,4 @@ web_origins:
   - http://app:8000/*
 realm_management_roles:
   - view-users
+  - manage-users
