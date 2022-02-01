@@ -149,6 +149,12 @@ roles:
             resourceType: catalog:portfolio_item
             type: resource
           - decisionStrategy: UNANIMOUS
+            description: 'Administrator access to all service plans'
+            logic: POSITIVE
+            name: catalog-admin-all-service-plan-permission
+            resourceType: catalog:service_plan
+            type: resource
+          - decisionStrategy: UNANIMOUS
             description: 'Administrator access to all orders'
             logic: POSITIVE
             name: catalog-admin-all-order-permission
@@ -200,6 +206,20 @@ roles:
         type: catalog:portfolio_item
         uris:
           - api/v1/portfolio_items/*
+      - displayName: 'All Service Plans'
+        name: catalog:service_plan:all
+        scopes:
+          - displayName: 'Catalog Service Plan Create'
+            name: catalog:service_plan:create
+          - displayName: 'Catalog Service Plan Read'
+            name: catalog:service_plan:read
+          - displayName: 'Catalog Service Plan Update'
+            name: catalog:service_plan:update
+          - displayName: 'Catalog Service Plan Delete'
+            name: catalog:service_plan:delete
+        type: catalog:service_plan
+        uris:
+          - api/v1/service_plans/*
       - displayName: 'All Orders'
         name: catalog:order:all
         scopes:
