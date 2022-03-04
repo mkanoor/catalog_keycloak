@@ -50,6 +50,8 @@
     standard_flow_enabled: true
     state: present
     web_origins: '{{ web_origins }}'
+    authorization_settings:
+      decisionStrategy: AFFIRMATIVE
   name: 'Create or update a Keycloak client for Catalog'
 - include_tasks: keycloak_token.yml
 - name: 'Get Clients'
