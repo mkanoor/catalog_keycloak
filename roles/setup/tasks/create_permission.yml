@@ -1,6 +1,10 @@
 - ansible.builtin.debug:
     msg: 'Creating Permission {{ permission.name }}'
   name: 'Permission Name'
+- name: "reset the permission variables"
+  set_fact:
+    pws: {}
+    extra_values: {}
 - name: 'Get scope if specified'
   register: scope_access
   uri:
@@ -24,7 +28,7 @@
     extra_values:
       policies:
         - '{{ policy_id }}'
-  when: 'permission.scope_name is not defined and scope_id is not defined'
+  when: 'permission.scope_name is not defined'
 - name: 'Set Policy & Scope Value'
   set_fact:
     extra_values:
@@ -33,9 +37,6 @@
       scopes:
         - '{{ scope_id }}'
   when: 'permission.scope_name is defined and scope_id is defined'
-- name: "reset the pws"
-  set_fact:
-    pws: {}
 
 - loop_control:
     loop_var: current_item
