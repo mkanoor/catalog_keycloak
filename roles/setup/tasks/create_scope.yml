@@ -3,6 +3,7 @@
   name: 'Scope Name'
 - name: 'Create scope'
   uri:
+    validate_certs: "{{ verify_ssl }}"
     body: '{{ scope | to_json }}'
     body_format: json
     headers:

@@ -8,6 +8,7 @@
 - name: 'Get scope if specified'
   register: scope_access
   uri:
+    validate_certs: "{{ verify_ssl }}"
     headers:
       Accept: application/json
       Authorization: 'Bearer {{ keycloak_token.json.access_token }}'
@@ -50,6 +51,7 @@
     permission_item: '{{ pws | combine(extra_values) }}'
 - name: 'Create permission'
   uri:
+    validate_certs: "{{ verify_ssl }}"
     body: '{{ permission_item | to_json }}'
     body_format: json
     headers:

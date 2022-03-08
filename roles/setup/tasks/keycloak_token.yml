@@ -1,6 +1,7 @@
 - name: 'Create Token for service Keycloak'
   register: keycloak_token
   uri:
+    validate_certs: "{{ verify_ssl }}"
     body:
       client_id: '{{ auth_client_id }}'
       grant_type: password
