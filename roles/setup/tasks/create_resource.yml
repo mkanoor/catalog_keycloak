@@ -3,7 +3,7 @@
   name: "Resource Name"
 - name: "Add resource"
   uri:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     body: "{{ resource | to_json }}"
     body_format: json
     headers:

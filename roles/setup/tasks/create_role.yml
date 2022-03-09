@@ -3,7 +3,7 @@
     msg: "Creating Role {{ role.key }}"
   name: "Role Name"
 - community.general.keycloak_role:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     auth_client_id: "{{ auth_client_id }}"
     auth_keycloak_url: "{{ auth_keycloak_url }}"
     auth_password: "{{ auth_password }}"

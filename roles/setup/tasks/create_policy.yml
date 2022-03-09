@@ -21,7 +21,7 @@
 - name: "Add Policy"
   register: create_policy
   uri:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     body: "{{ policy_item | to_json }}"
     body_format: json
     headers:
@@ -43,7 +43,7 @@
 - name: "Get policy if we didn't create a new policy"
   register: get_policy_list
   uri:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     headers:
       Accept: application/json
       Authorization: "Bearer {{ keycloak_token.json.access_token }}"

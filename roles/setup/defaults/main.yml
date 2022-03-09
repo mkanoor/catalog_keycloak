@@ -15,4 +15,4 @@ web_origins:
   - http://app:8000/*
 realm_management_roles:
   - view-users
-verify_ssl: true
+verify_keycloak_ssl: true

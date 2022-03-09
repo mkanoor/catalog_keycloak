@@ -3,7 +3,7 @@
   name: "Group Name"
 - community.general.keycloak_group:
 - community.general.keycloak_client_rolemapping:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     auth_client_id: "{{ auth_client_id }}"
     auth_keycloak_url: "{{ auth_keycloak_url }}"
     auth_password: "{{ auth_password }}"

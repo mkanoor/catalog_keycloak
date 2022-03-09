@@ -18,11 +18,11 @@
     id: "{{ realm_name }}"
     realm: "{{ realm_name }}"
     state: present
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
   name: "Create or update AAP Keycloak realm"
   register: my_realm
 - community.general.keycloak_client:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     admin_url: "{{ admin_url }}"
     auth_client_id: "{{ auth_client_id }}"
     auth_keycloak_url: "{{ auth_keycloak_url }}"
@@ -58,7 +58,7 @@
 - name: "Get Clients"
   register: keycloak_clients
   uri:
-    validate_certs: "{{ verify_ssl }}"
+    validate_certs: "{{ verify_keycloak_ssl }}"
     headers:
       Accept: application/json
       Authorization: "Bearer {{ keycloak_token.json.access_token }}"
