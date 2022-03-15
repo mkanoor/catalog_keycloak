@@ -223,24 +223,28 @@ roles:
       - displayName: 'All Orders'
         name: catalog:order:all
         scopes:
+          - displayName: 'Catalog Order Create'
+            name: catalog:order:create
           - displayName: 'Catalog Order Read'
             name: catalog:order:read
-          - displayName: 'Catalog Order Write'
-            name: catalog:order:write
-          - displayName: 'Catalog Order Order'
-            name: catalog:order:order
+          - displayName: 'Catalog Order Update'
+            name: catalog:order:update
+          - displayName: 'Catalog Order Delete'
+            name: catalog:order:create
         type: catalog:order
         uris:
           - api/v1/orders/*
       - displayName: 'All Order Items'
         name: catalog:order_item:all
         scopes:
+          - displayName: 'Catalog Order Item Create'
+            name: catalog:order_item:create
           - displayName: 'Catalog Order Item Read'
             name: catalog:order_item:read
-          - displayName: 'Catalog Order Item Write'
-            name: catalog:order_item:write
-          - displayName: 'Catalog Order Item Order'
-            name: catalog:order_item:order
+          - displayName: 'Catalog Order Item Update'
+            name: catalog:order_item:update
+          - displayName: 'Catalog Order Item Delete'
+            name: catalog:order_item:delete
         type: catalog:order_item
         uris:
           - api/v1/order_items/*
