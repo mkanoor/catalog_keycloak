@@ -51,7 +51,8 @@
     method: GET
     status_code:
       - 200
-    url: "{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients/{{ catalog_client['id'] }}/authz/resource-server/policy?first=0&max=20&name={{ policy.name }}&permission=false"
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients/{{ catalog_client['id'] }}\
+      /authz/resource-server/policy?first=0&max=20&name={{ policy.name }}&permission=false"
   when:
     - "create_policy.status != 201"
 - name: "Set policy_id from the retrived policy object"
