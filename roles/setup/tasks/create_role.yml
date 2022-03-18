@@ -9,7 +9,7 @@
     auth_password: "{{ auth_password }}"
     auth_realm: "{{ auth_realm }}"
     auth_username: "{{ auth_username }}"
-    client_id: catalog
+    client_id: "{{ client_name }}"
     description: "{{ role.value.description }}"
     name: "{{ role.key }}"
     realm: "{{ realm_name }}"

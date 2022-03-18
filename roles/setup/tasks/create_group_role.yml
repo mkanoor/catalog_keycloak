@@ -8,7 +8,7 @@
     auth_password: "{{ auth_password }}"
     auth_realm: "{{ auth_realm }}"
     auth_username: "{{ auth_username }}"
-    client_id: catalog
+    client_id: "{{ client_name }}"
     group_name: "{{ group.name }}"
     realm: "{{ realm_name }}"
     roles:

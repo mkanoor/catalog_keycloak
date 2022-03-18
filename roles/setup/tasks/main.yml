@@ -11,7 +11,7 @@
     auth_password: "{{ auth_password }}"
     auth_realm: "{{ auth_realm }}"
     auth_username: "{{ auth_username }}"
-    display_name: "Ansible Automation Platform"
+    display_name: "{{ display_name }}"
     enabled: true
     attributes:
       frontendUrl: "{{ realm_frontend_url }}"
@@ -32,15 +32,14 @@
     authorization_services_enabled: true
     bearer_only: false
     client_authenticator_type: client-secret
-    client_id: catalog
+    client_id: "{{ client_name }}"
     consent_required: false
-    description: "Client ID for Ansible Services Catalog"
+    description: "Client ID for Pinakes"
     direct_access_grants_enabled: false
     enabled: true
     frontchannel_logout: false
-    id: "{{ client_guid }}"
     implicit_flow_enabled: false
-    name: Catalog
+    name: "{{ client_name }}"
     protocol: openid-connect
     public_client: false
     realm: "{{ realm_name }}"
@@ -66,7 +65,7 @@
     method: GET
     status_code:
       - 200
-    url: "{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients?clientId=catalog&first=0&max=20&search=true"
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ realm_name }}/clients?clientId={{ client_name }}&first=0&max=20&search=true"
 - name: "Save catalog client"
   set_fact:
     catalog_client: "{{ keycloak_clients['json'][0]  }}"
